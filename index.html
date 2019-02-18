@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Les 6.1</title>
+</head>
+<body>
+    <header>
+        <h1>Les 6.1</h1> 
+    </header>
+ 
+
+    <p>
+        <label for="">Title</label><br>
+        <input type="text" id="titleInput">
+    </p>
+
+    <p>
+        <label for="">Todo</label><br>
+        <textarea name="todoInput" id="todoInput" cols="30" rows="10"></textarea>
+    </p> 
+    <button id="addButton">Toevoegen</button> 
+    
+    <ul id="list1">
+    </ul>
+
+    <h2>Oefening</h2>
+    <button id="voegToeButton">Voeg item toe</button>
+    <input id="nummerInput" type="number" >
+    <button id="verwijderButton">Verwijder</button>
+    <ul id="list2">
+
+    </ul>
+ 
+    
+
+    <script>
+        var titleInput = document.querySelector("#titleInput");
+        var todoInput = document.querySelector("#todoInput");
+        var listPrint = document.querySelector("#list");
+        var list = [{
+            title: "Tuin",
+            description: "Gras maaien"
+        }];
+        // Zorgt ervoor dat er geen javascript meer in de html staat
+        var addButton = document.querySelector("#addButton");
+        addButton.addEventListener("click", toevoegen);
+        var list1 = document.querySelector("#list1");        
+        printList(); 
+
+        function printList(){
+            var new_li_a = document.createElement('li');
+            var new_li_a_title = document.createElement('strong');
+            var new_li_a_description = document.createElement("span");
+
+            for ( i = 0; i < list.length; i++){
+                
+                new_li_a_title.innerHTML = list[i].title + " ";
+                new_li_a_description.innerHTML = list[i].description;
+                list1.appendChild(new_li_a);
+                new_li_a.appendChild(new_li_a_title);
+                new_li_a.appendChild(new_li_a_description);
+            }  
+        };
+
+        function toevoegen(){
+            list.push({title: titleInput.value, description: todoInput.value});
+            printList();
+        };
+        
+        // Oefening met .createElement en .appendChild
+        var list2 = document.querySelector("#list2");
+        var voegToeButton = document.querySelector("#voegToeButton");
+        voegToeButton.addEventListener("click", voegItemToe);
+        var index = 0;
+
+        function voegItemToe(){
+            index++;
+            var new_li = document.createElement('li');
+            new_li.innerHTML = index + ". Lorem ipsum";
+            new_li.setAttribute("class", "list-item-" + index);
+            list2.appendChild(new_li);            
+        };
+
+        var verwijderButton = document.querySelector("#verwijderButton");
+        verwijderButton.addEventListener("click", verwijderItem);
+
+        function verwijderItem(){
+            var nummerInput = document.querySelector("#nummerInput");
+            // var liSelect = ".list-item-" + nummerInput.value;
+            // var removeItem = document.querySelector(liSelect);
+            var removeItem = document.querySelector("#list2.li:nth-child("+ nummerInput.value +")");
+            if(removeItem){
+                list2.removeChild(removeItem);
+            }
+            // removeItem.parentNode.removeChild(removeItem);
+
+        }
+    // .parentNode.removeChild
+
+    </script>
+
+</body>
+</html>
